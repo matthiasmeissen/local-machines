@@ -45,6 +45,14 @@ form {
     gap: 20px;
 }
 
+div.select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
 div.pagination {
     position: fixed;
     bottom: 20px;

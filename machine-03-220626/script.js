@@ -9,13 +9,19 @@ const questions = [
         answer: ''
     },
     {
-        title: 'Title 2',
+        title: 'Range',
         type: 'range',
         answer: ''
     },
     {
-        title: 'Title 3',
+        title: 'Select',
         type: 'select',
+        options: ['Option 1', 'Option 2', 'Option 3'],
+        answer: ''
+    },
+    {
+        title: 'Multiple',
+        type: 'multiple',
         options: ['Option 1', 'Option 2', 'Option 3'],
         answer: ''
     }
@@ -43,6 +49,29 @@ const makeInput = function (question) {
 
             input.appendChild(item)
         });
+    } else if (question.type == 'multiple') {
+        input = document.createElement('div')
+        
+        question.options.forEach((option, index) => {
+            const item = document.createElement('div')
+            item.classList.add('select')
+
+            const name = option
+            
+            const checkbox = document.createElement('input')
+            checkbox.setAttribute('type', 'checkbox')
+            checkbox.setAttribute('id', name)
+            checkbox.setAttribute('name', name)
+
+            const label = document.createElement('label')
+            label.setAttribute('for', name)
+            label.innerHTML = option
+
+            item.appendChild(checkbox)
+            item.appendChild(label)
+
+            input.appendChild(item)
+        });
     }
 
     return input
@@ -63,13 +92,33 @@ questions.forEach((question, index) => {
     form.appendChild(makeInput(questions[index]))
     form.appendChild(button)
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault()
-        const answer = this.elements[0].value
-        questions[index].answer = answer
+    if (question.type == 'multiple') {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault()
 
-        console.log(questions[index])
-    })
+            const inputs = form.querySelectorAll('input')
+
+            let selectedOptions = []
+
+            inputs.forEach(item => {
+                if (item.checked) {
+                    selectedOptions.push(item.name)
+                }
+            });
+
+            questions[index].answer = selectedOptions
+
+            console.log(questions[index])
+        })
+    } else {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault()
+            const answer = this.elements[0].value
+            questions[index].answer = answer
+    
+            console.log(questions[index])
+        })
+    }
 
     section.appendChild(form)
 
