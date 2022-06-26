@@ -14,8 +14,8 @@ const questions = [
         answer: ''
     },
     {
-        title: 'Select',
-        type: 'select',
+        title: 'Dropdown',
+        type: 'dropdown',
         options: ['Option 1', 'Option 2', 'Option 3'],
         answer: ''
     },
@@ -23,6 +23,12 @@ const questions = [
         title: 'Multiple',
         type: 'multiple',
         options: ['Option 1', 'Option 2', 'Option 3'],
+        answer: ''
+    },
+    {
+        title: 'Radio',
+        type: 'radio',
+        options: ['Radio 1', 'Radio 2', 'Radio 3'],
         answer: ''
     }
 ]
@@ -40,7 +46,7 @@ const makeInput = function (question) {
     } else if (question.type == 'range') {
         input = document.createElement('input')
         input.setAttribute('type', 'range')
-    } else if (question.type == 'select') {
+    } else if (question.type == 'dropdown') {
         input = document.createElement('select')
         question.options.forEach(option => {
             const item = document.createElement('option')
@@ -49,22 +55,30 @@ const makeInput = function (question) {
 
             input.appendChild(item)
         });
-    } else if (question.type == 'multiple') {
+    } else if (question.type == 'multiple' || question.type == 'radio') {
         input = document.createElement('div')
         
-        question.options.forEach((option, index) => {
+        question.options.forEach(option => {
             const item = document.createElement('div')
             item.classList.add('select')
 
-            const name = option
-            
+            const key = question.title + option
+
             const checkbox = document.createElement('input')
-            checkbox.setAttribute('type', 'checkbox')
-            checkbox.setAttribute('id', name)
-            checkbox.setAttribute('name', name)
+
+            if (question.type == 'multiple') {
+                checkbox.setAttribute('type', 'checkbox')
+                checkbox.setAttribute('name', key)
+            } else if (question.type == 'radio') {
+                checkbox.setAttribute('type', 'radio')
+                checkbox.setAttribute('name', question.title)
+            }
+
+            checkbox.setAttribute('data-answer', option)
+            checkbox.setAttribute('id', key)
 
             const label = document.createElement('label')
-            label.setAttribute('for', name)
+            label.setAttribute('for', key)
             label.innerHTML = option
 
             item.appendChild(checkbox)
@@ -92,7 +106,7 @@ questions.forEach((question, index) => {
     form.appendChild(makeInput(questions[index]))
     form.appendChild(button)
 
-    if (question.type == 'multiple') {
+    if (question.type == 'multiple' || question.type == 'radio') {
         form.addEventListener('submit', function (event) {
             event.preventDefault()
 
@@ -102,7 +116,7 @@ questions.forEach((question, index) => {
 
             inputs.forEach(item => {
                 if (item.checked) {
-                    selectedOptions.push(item.name)
+                    selectedOptions.push(item.dataset.answer)
                 }
             });
 
