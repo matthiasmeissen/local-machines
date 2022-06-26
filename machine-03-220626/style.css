@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+:root {
+    --color-primary: #ffffff;
+    --color-secondary: #000000;
+
+    --border-width: min(0.6vw, 0.6vh);
+    --border-radius: min(2vw, 2vh);
+    --spacing-m: min(2vw, 2vh);
+}
+
+div.content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e7e7e7;
+}
+
+div.inner {
+    width: calc(min(100vw, 100vh) - 60px);
+    height: calc(min(100vw, 100vh) - 60px);
+    background-color: var(--color-primary);
+    padding: var(--spacing-m);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-m);
+}
+
+div.inner div {
+    border-radius: var(--border-radius);
+}
+
+textarea.title {
+    font-family: 'Poppins', sans-serif;
+    font-size: min(14vw, 14vh);
+    text-align: center;
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+    border-radius: var(--border-radius);
+    padding: 12px 20px 42px 20px;
+    resize: none;
+}
+
+div.icon {
+    height: 100%;
+    padding: 3% 10%;
+    border: var(--border-width) solid var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.icon svg {
+    fill: var(--color-secondary);
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+div.inner div.bottom {
+    width: 100%;
+    border: none;
+    display: flex;
+    gap: var(--spacing-m);
+}
+
+div.logo {
+    width: 30%;
+    aspect-ratio: 1;
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: min(4vw, 4vh);
+    overflow: hidden;
+}
+
+div.logo svg {
+    fill: var(--color-primary);
+    width: 100%;
+}
+
+div.link {
+    width: 100%;
+    border: var(--border-width) solid var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.link div {
+    font-size: min(4vw, 4vh);
+    color: var(--color-secondary);
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-primary: #000000;
+        --color-secondary: #ffffff;
+    }
+}
