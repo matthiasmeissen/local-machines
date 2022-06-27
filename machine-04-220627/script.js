@@ -1,6 +1,26 @@
 const contentTag = document.querySelector('div.content')
-const formTags = document.querySelectorAll('form')
-const submitButton = document.querySelector('section button')
+const pagination = document.querySelectorAll('div.pagination button')
+const infoTeaser = document.querySelector('div.info-teaser')
+const infoTag = document.querySelector('div.info')
+const closeTag = document.querySelector('div.close')
+
+infoTag.addEventListener('click', function () {
+    infoTeaser.classList.add('open')
+})
+
+closeTag.addEventListener('click', function () {
+    infoTeaser.classList.remove('open')
+})
+
+pagination.forEach(button => {
+    button.addEventListener('click', function () {
+        if (button.className == 'prev') {
+            contentTag.scrollBy(0, -20)
+        } else if (button.className == 'next') {
+            contentTag.scrollBy(0, 20)
+        }
+    })
+});
 
 const questions = [
     {
@@ -32,10 +52,6 @@ const questions = [
         answer: ''
     }
 ]
-
-submitButton.addEventListener('click', function () {
-    console.log(questions)
-})
 
 const makeInput = function (question) {
     let input
@@ -138,3 +154,21 @@ questions.forEach((question, index) => {
 
     contentTag.appendChild(section)
 });
+
+const createSubmit = function () {
+    const section = document.createElement('section')
+    const button = document.createElement('button')
+    button.classList.add('submit')
+    button.innerHTML = 'Submit'
+
+    button.addEventListener('click', function () {
+        contentTag.style.backgroundColor = 'hsl(154deg 100% 80%)'
+        button.innerHTML = 'You did it'
+        console.log(questions)
+    })
+
+    section.appendChild(button)
+    contentTag.appendChild(section)
+}
+
+createSubmit()
