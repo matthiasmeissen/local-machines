@@ -138,6 +138,8 @@ questions.forEach((question, index) => {
 
             questions[index].answer = selectedOptions
 
+            contentTag.scrollBy(0, 20)
+
             console.log(questions[index])
         })
     } else {
@@ -145,6 +147,8 @@ questions.forEach((question, index) => {
             event.preventDefault()
             const answer = this.elements[0].value
             questions[index].answer = answer
+
+            contentTag.scrollBy(0, 20)
     
             console.log(questions[index])
         })
